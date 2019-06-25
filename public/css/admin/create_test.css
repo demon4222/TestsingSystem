@@ -1,0 +1,11 @@
+.next-btn{
+    float: right;
+}
+.head{
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+}
+#delete-btn{
+    float: right;
+}
