@@ -5,7 +5,9 @@ namespace App\Helpers;
 
 use App\Answer;
 use App\Question;
+use App\Result;
 use App\Test;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\SessionHelper;
 
@@ -113,9 +115,10 @@ class TestHelper
 
         foreach (Session::get('question') as $session_data) {
             $question = $this->createNewQuestion($session_data, $test->id);
-
-            foreach ($session_data['wrong_answers'] as $answer) {
-                $this->createNewAnswer($question, $answer, 0);
+            if($session_data['answer_type']!=3) {
+                foreach ($session_data['wrong_answers'] as $answer) {
+                    $this->createNewAnswer($question, $answer, 0);
+                }
             }
 
             foreach ($session_data['correct_answers'] as $answer) {
@@ -151,11 +154,30 @@ class TestHelper
                 $correct=true;
         }
         else{
-            $answer = Answer::find($answer_data['answer']);
-            if($answer->isCorrect)
-                $correct=true;
+            $question = Question::find($answer_data['question']);
+            if($question->answer_type_id==1) {
+                $answer = Answer::find($answer_data['answer']);
+                if ($answer->isCorrect)
+                    $correct = true;
+            }
+            elseif($question->answer_type_id==3)
+            {
+                $correct_answer = $question->answers()->first();
+                if($correct_answer->answer==$answer_data['answer'])
+                    $correct=true;
+            }
         }
         return $correct;
+    }
+
+    private function saveResult($result)
+    {
+        $newResult = new Result();
+        $newResult->user_id = Auth::user()->id;
+        $test_id = Session::get('test_id');
+        $newResult->test_id = $test_id;
+        $newResult->result = $result;
+        $newResult->save();
     }
 
     public function calculateResult()
@@ -175,6 +197,8 @@ class TestHelper
         }
 
         $result = intval($correctAnswersCount/$countOfAllQuestions * 100);
+        $this->saveResult($result);
+
         return $result;
     }
 }

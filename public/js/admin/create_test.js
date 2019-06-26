@@ -60,8 +60,10 @@ function next_question()
     var wrong_answer_field = document.getElementById('wrong_answer_field');
     if(correct_answer_field==null||correct_answer_field.value=='')
         return alert('Добавьте минимум один правильный ответ');
-    if((wrong_answer_field==null&&answer_type.value!=3)||wrong_answer_field.value == '')
-        return alert('Добавьте минимум один ложный ответ');
+    if(answer_type.value!=3) {
+        if ((wrong_answer_field == null) || wrong_answer_field.value == '')
+            return alert('Добавьте минимум один ложный ответ');
+    }
 
     $.ajaxSetup({
         headers: {
@@ -114,5 +116,4 @@ function next_step() {
             console.log('Error:', data);
         }
     })
-
 }

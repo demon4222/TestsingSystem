@@ -31,6 +31,12 @@ Route::group(['middleware'=>'auth'],function (){
         Route::get('/test/addTestName', 'TestController@addTestName');
 
         Route::get('/test/endCreation', 'TestController@endTestCreation');
+
+        Route::get('/rating', 'ResultController@indexRating');
+
+        Route::get('/testList', 'TestController@getAdminTestList');
+
+        Route::delete('/test/delete/{id}', 'TestController@delete');
     });
 
     Route::get('/test/{test_id}', 'TestController@startTest');
@@ -42,5 +48,7 @@ Route::group(['middleware'=>'auth'],function (){
     Route::post('/test/saveAnswerToSession', 'TestController@saveAnswerToSession');
 
     Route::get('/result', 'TestController@showCurrentTestResult');
+
+    Route::get('/myresults','ResultController@indexUser');
 });
 

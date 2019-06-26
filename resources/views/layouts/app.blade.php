@@ -12,9 +12,9 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    @stack('scripts')
+@stack('scripts')
 
-    <!-- Fonts -->
+<!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
@@ -44,14 +44,18 @@
                                 <a class="nav-link" href="/tests">Начать тест <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Мои результаты</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Рейтинг</a>
+                                <a class="nav-link" href="/myresults">Мои результаты</a>
                             </li>
                             @if(Auth::user()->isAdmin)
                                 <li class="nav-item">
-                                    <a class="nav-link text-success" href="{{route('create_test')}}">Создать новый тест</a>
+                                    <a class="nav-link" href="/testList">Список тестов</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/rating">Рейтинг</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-success" href="{{route('create_test')}}">Создать новый
+                                        тест</a>
                                 </li>
                             @endif
                         </ul>

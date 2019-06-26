@@ -17,7 +17,7 @@ class CreateQuestionsTable extends Migration
             $table->increments('id');
 
             $table->integer('test_id')->unsigned();
-            $table->foreign('test_id')->references('id')->on('tests');
+            $table->foreign('test_id')->references('id')->on('tests')->onDelete('cascade');;
 
             $table->integer('answer_type_id')->unsigned();
             $table->foreign('answer_type_id')->references('id')->on('answer_type');

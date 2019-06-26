@@ -6,13 +6,13 @@
                 <div>Осталось вопросов: {{Session::get('questions_cnt')}}</div>
             </div>
 
-            <div class="card-body">
+            <div class="card-body form-group">
                 <form id="answer_form">
                     <input type="hidden" value="{{$question->answer_type_id}}" name="answer_type" id="answer_type">
                     <h3 class="mb-4">{{$question->question_text}}</h3>
 
-                    <div class="form-check my-2">
-                        <input class="form-check-input" type="text" name="answer" id="answer_text">
+                    <div class="form-group my-2">
+                        <input class="form-control" type="text" name="answer" id="answer_text">
                     </div>
 
                     @if(Session::get('questions_cnt')==1)

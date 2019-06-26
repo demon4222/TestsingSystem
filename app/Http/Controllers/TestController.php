@@ -36,6 +36,10 @@ class TestController extends Controller
 
     public function showCurrentTestResult()
     {
+
+        if(!Session::exists('test_id')) {
+            return redirect('/home');
+        }
         $result = $this->testHelper->calculateResult();
 
         $test = Test::find(Session::get('test_id'));
@@ -78,6 +82,20 @@ class TestController extends Controller
         return view('user.chooseTest', compact('tests'));
     }
 
+    public function getAdminTestList()
+    {
+        $tests = Test::all();
+        return view('admin.testlist', compact('tests'));
+    }
+
+    public function delete($id)
+    {
+        $test = Test::find($id);
+        $test->delete();
+
+        return redirect()->back();
+    }
+
     public function addTestName(Request $request)
     {
         Session::put('test_name', $request->test_name);
@@ -88,8 +106,7 @@ class TestController extends Controller
     {
         try {
             $this->testHelper->endTestCreation();
-        } catch (\Exception $e)
-        {
+        } catch (Exception $e) {
             return redirect('/home');
         }
 

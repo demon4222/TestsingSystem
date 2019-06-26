@@ -19,6 +19,9 @@ class CreateTestResultsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('user_id')->on('users');
 
+            $table->integer('test_id')->unsigned();
+            $table->foreign('test_id')->references('id')->on('tests')->onDelete('cascade');;
+
             $table->float('result');
 
             $table->timestamps();

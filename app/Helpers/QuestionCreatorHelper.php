@@ -20,7 +20,8 @@ class QuestionCreatorHelper
         }
         else if($request->answer_type==3)
         {
-
+            $correct = $request->correct_answer_text;
+            Session::push('question', ['text' => $request->question_text, 'answer_type' => $request->answer_type, 'correct_answers' => $correct]);
         }
     }
 

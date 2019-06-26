@@ -35,7 +35,7 @@ function next_question() {
             return;
         }
     }
-    if (($('input[name=answer]:checked')) && answer_type.value != 3) {
+    if ($('input[name=answer]:checked')) {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -50,11 +50,6 @@ function next_question() {
             dataType: 'html',
             data: form.serialize(),
             success: function (data) {
-                // alert(data);
-                // if (!data)
-                //     $('.test-block').load('/get_question');
-                // else
-                //     location.href = '/result';
                 if (!data)
                     $('.test-block').load('/get_question');
                 else

@@ -20,4 +20,11 @@ class Test extends Model
     {
         return $this->hasMany('App\Question');
     }
+
+    public function countOfQuestions()
+    {
+        $count = count($this->questions()->get());
+
+        return $count;
+    }
 }
