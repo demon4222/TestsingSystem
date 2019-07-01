@@ -7,12 +7,23 @@ use App\Answer;
 use App\Question;
 use App\Result;
 use App\Test;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\SessionHelper;
 
 class TestHelper
 {
+    public function editTestNameAjax(Request $request)
+    {
+        $test_id = $request->test_id;
+        $new_test_name = $request->new_name;
+
+        $test = Test::find($test_id);
+        $test->test_name = $new_test_name;
+        $test->save();
+    }
+
     private function putQuestionsToSession($test)
     {
         $questions = $test->questions()->get()->toArray();

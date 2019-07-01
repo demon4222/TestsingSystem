@@ -37,6 +37,20 @@ Route::group(['middleware'=>'auth'],function (){
         Route::get('/testList', 'TestController@getAdminTestList');
 
         Route::delete('/test/delete/{id}', 'TestController@delete');
+
+        Route::get('/test/edit/{id}','TestController@edit');
+
+        Route::post('/test/edit_name', 'TestController@editTestName');
+
+        Route::post('/getQuestionAjax', 'QuestionController@getQuestionAjax');
+
+        Route::post('/getAnswersByQuestionAjax','AnswerController@getAnswersByQuestionAjax');
+
+        Route::delete('/deleteQuestionAjax', 'QuestionController@deleteQuestionAjax');
+
+        Route::post('/saveNewQuestion','QuestionController@saveNewQuestion');
+
+        Route::post('/updateQuestion', 'QuestionController@updateQuestionAjax');
     });
 
     Route::get('/test/{test_id}', 'TestController@startTest');

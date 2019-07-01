@@ -24,11 +24,28 @@ class TestController extends Controller
         return view('admin.test_name');
     }
 
+    public function edit($id)
+    {
+        $test = Test::find($id);
+        Session::forget('editing_test_id');
+        Session::put('editing_test_id', $id);
+        $questions = $test->questions()->get();
+
+        return view('admin.testEdit', compact('test','questions'));
+    }
+
+    public function editTestName(Request $request)
+    {
+        $this->testHelper->editTestNameAjax($request);
+    }
+
     /**
      * find test by id and put questions to session
      */
     public function startTest($id)
     {
+        if(!is_numeric($id))
+            return redirect('/home');
         $this->testHelper->prepareQuestionsForTest($id);
 
         return view('user.testing');
